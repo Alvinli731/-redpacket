@@ -6,17 +6,19 @@
   <meta name="viewport"
         content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <title>🧧 惡搞利是</title>
+  <title>🧧 利是</title>
 
-  <!-- 分享預覽文字 -->
   <meta property="og:title"
-        content="🧧 你收到一封惡搞利是">
+        content="🧧 你收到一封利是">
 
   <meta property="og:description"
-        content="撳入去睇下入面係咩 👀">
+        content="撳入去開利是 👀">
 
   <meta property="og:type"
         content="website">
+
+  <meta property="og:image"
+        content="https://alvinli731.github.io/-redpacket/IMG_1155.jpeg">
 
   <meta name="theme-color"
         content="#b5121b">
@@ -28,17 +30,12 @@
 
     html,
     body {
+      margin: 0;
       width: 100%;
       height: 100%;
     }
 
     body {
-      margin: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
       background: #b5121b;
 
       font-family:
@@ -50,7 +47,23 @@
         Arial,
         sans-serif;
 
+      overflow: hidden;
+    }
+
+    /* 開利是畫面 */
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #b5121b;
+
       color: white;
+
+      z-index: 10;
     }
 
     .card {
@@ -66,7 +79,7 @@
       border-radius: 28px;
 
       box-shadow:
-        0 18px 55px rgba(0, 0, 0, 0.3);
+        0 18px 55px rgba(0,0,0,.3);
     }
 
     .emoji {
@@ -75,17 +88,13 @@
     }
 
     h1 {
-      margin: 20px 0 10px;
-
+      margin: 18px 0 8px;
       font-size: 28px;
-      font-weight: 700;
     }
 
-    #message {
+    p {
       margin: 0;
-
-      font-size: 16px;
-      opacity: 0.9;
+      opacity: .9;
     }
 
     .loader {
@@ -94,12 +103,12 @@
 
       margin: 28px auto 0;
 
-      border: 4px solid rgba(255,255,255,0.3);
+      border: 4px solid rgba(255,255,255,.3);
       border-top-color: white;
 
       border-radius: 50%;
 
-      animation: spin 0.8s linear infinite;
+      animation: spin .8s linear infinite;
     }
 
     @keyframes spin {
@@ -108,168 +117,92 @@
       }
     }
 
-    #openButton {
+    /* 圖片畫面 */
+    #photoScreen {
+      position: fixed;
+      inset: 0;
+
       display: none;
 
+      align-items: center;
+      justify-content: center;
+
+      background: black;
+
+      z-index: 20;
+    }
+
+    #photoScreen img {
       width: 100%;
+      height: 100%;
 
-      margin-top: 28px;
-      padding: 16px 20px;
+      object-fit: contain;
 
-      background: white;
-      color: #c91f28;
-
-      border: 0;
-      border-radius: 999px;
-
-      font-size: 17px;
-      font-weight: 700;
-
-      text-decoration: none;
-
-      cursor: pointer;
-    }
-
-    #webButton {
-      display: none;
-
-      margin-top: 18px;
-
-      color: white;
-      font-size: 14px;
-    }
-
-    small {
-      display: block;
-
-      margin-top: 22px;
-
-      opacity: 0.65;
-      font-size: 12px;
+      background: black;
     }
   </style>
 </head>
 
 <body>
 
-  <main class="card">
+  <div id="loadingScreen">
 
-    <div class="emoji">
-      🧧
+    <div class="card">
+
+      <div class="emoji">
+        🧧
+      </div>
+
+      <h1>
+        開緊利是...
+      </h1>
+
+      <p>
+        請稍候 👀
+      </p>
+
+      <div class="loader"></div>
+
     </div>
 
-    <h1 id="title">
-      開緊利是...
-    </h1>
+  </div>
 
-    <p id="message">
-      準備開啟 👀
-    </p>
 
-    <div
-      id="loader"
-      class="loader">
-    </div>
+  <div id="photoScreen">
 
-    <a
-      id="openButton"
-      href="instagram://media?id=3992918750717907265">
-      開啟 Instagram
-    </a>
+    <img
+      src="IMG_1155.jpeg"
+      alt="圖片">
 
-    <a
-      id="webButton"
-      href="https://www.instagram.com/p/DdpsnLJiZFB/">
-      用瀏覽器查看
-    </a>
+  </div>
 
-    <small>
-      惡搞頁面
-    </small>
-
-  </main>
 
   <script>
 
-    const instagramApp =
-      "instagram://media?id=3992918750717907265";
+    /*
+      預先載入圖片
+    */
 
-    const instagramWeb =
-      "https://www.instagram.com/p/DdpsnLJiZFB/";
+    const prankImage = new Image();
 
-    const title =
-      document.getElementById("title");
-
-    const message =
-      document.getElementById("message");
-
-    const loader =
-      document.getElementById("loader");
-
-    const openButton =
-      document.getElementById("openButton");
-
-    const webButton =
-      document.getElementById("webButton");
+    prankImage.src = "IMG_1155.jpeg";
 
 
     /*
-      先等一陣，
-      俾使用者睇到「開緊利是」
+      約 1.2 秒後顯示圖片
     */
 
-    setTimeout(() => {
+    setTimeout(function () {
 
-      /*
-        嘗試直接叫 iPhone
-        開 Instagram App
-      */
+      document
+        .getElementById("loadingScreen")
+        .style.display = "none";
 
-      window.location.href =
-        instagramApp;
+      document
+        .getElementById("photoScreen")
+        .style.display = "flex";
 
-
-      /*
-        如果內置瀏覽器阻止，
-        約 1.5 秒後顯示手動按鈕
-      */
-
-      setTimeout(() => {
-
-        title.textContent =
-          "差一步 👀";
-
-        message.textContent =
-          "撳下面開啟利是";
-
-        loader.style.display =
-          "none";
-
-        openButton.style.display =
-          "inline-block";
-
-        webButton.style.display =
-          "inline-block";
-
-      }, 1500);
-
-    }, 900);
-
-
-    /*
-      如果使用者撳「開啟 Instagram」，
-      再嘗試一次 App Deep Link
-    */
-
-    openButton.addEventListener(
-      "click",
-      function () {
-
-        window.location.href =
-          instagramApp;
-
-      }
-    );
+    }, 1200);
 
   </script>
 
