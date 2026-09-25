@@ -2,72 +2,104 @@
 <html lang="zh-HK">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
 
   <title>🧧 惡搞利是</title>
 
-  <meta property="og:title" content="🧧 你收到一封惡搞利是">
-  <meta property="og:description" content="撳入去睇下入面係咩 👀">
-  <meta property="og:type" content="website">
+  <!-- 分享預覽文字 -->
+  <meta property="og:title"
+        content="🧧 你收到一封惡搞利是">
 
-  <meta name="theme-color" content="#b5121b">
+  <meta property="og:description"
+        content="撳入去睇下入面係咩 👀">
+
+  <meta property="og:type"
+        content="website">
+
+  <meta name="theme-color"
+        content="#b5121b">
 
   <style>
     * {
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
+      width: 100%;
       height: 100%;
     }
 
     body {
       margin: 0;
-      display: grid;
-      place-items: center;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
       background: #b5121b;
+
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         Roboto,
         "Noto Sans TC",
+        Arial,
         sans-serif;
+
       color: white;
     }
 
     .card {
-      width: min(88vw, 380px);
-      padding: 44px 26px;
-      border-radius: 26px;
+      width: 88%;
+      max-width: 390px;
+
+      padding: 45px 28px;
+
       text-align: center;
+
       background: #d9272e;
-      box-shadow: 0 18px 50px rgba(0,0,0,.28);
+
+      border-radius: 28px;
+
+      box-shadow:
+        0 18px 55px rgba(0, 0, 0, 0.3);
     }
 
     .emoji {
-      font-size: 84px;
+      font-size: 88px;
       line-height: 1;
     }
 
     h1 {
-      margin: 18px 0 8px;
+      margin: 20px 0 10px;
+
       font-size: 28px;
+      font-weight: 700;
     }
 
-    p {
+    #message {
       margin: 0;
-      opacity: .9;
+
+      font-size: 16px;
+      opacity: 0.9;
     }
 
     .loader {
-      width: 38px;
-      height: 38px;
-      margin: 26px auto 0;
-      border: 4px solid rgba(255,255,255,.32);
+      width: 40px;
+      height: 40px;
+
+      margin: 28px auto 0;
+
+      border: 4px solid rgba(255,255,255,0.3);
       border-top-color: white;
+
       border-radius: 50%;
-      animation: spin .8s linear infinite;
+
+      animation: spin 0.8s linear infinite;
     }
 
     @keyframes spin {
@@ -76,17 +108,44 @@
       }
     }
 
-    a {
-      display: inline-block;
-      margin-top: 24px;
+    #openButton {
+      display: none;
+
+      width: 100%;
+
+      margin-top: 28px;
+      padding: 16px 20px;
+
+      background: white;
+      color: #c91f28;
+
+      border: 0;
+      border-radius: 999px;
+
+      font-size: 17px;
+      font-weight: 700;
+
+      text-decoration: none;
+
+      cursor: pointer;
+    }
+
+    #webButton {
+      display: none;
+
+      margin-top: 18px;
+
       color: white;
       font-size: 14px;
     }
 
     small {
       display: block;
-      margin-top: 20px;
-      opacity: .72;
+
+      margin-top: 22px;
+
+      opacity: 0.65;
+      font-size: 12px;
     }
   </style>
 </head>
@@ -94,27 +153,124 @@
 <body>
 
   <main class="card">
-    <div class="emoji">🧧</div>
 
-    <h1>開緊利是...</h1>
+    <div class="emoji">
+      🧧
+    </div>
 
-    <p>準備跳轉 👀</p>
+    <h1 id="title">
+      開緊利是...
+    </h1>
 
-    <div class="loader"></div>
+    <p id="message">
+      準備開啟 👀
+    </p>
 
-    <a href="https://www.instagram.com/p/DdpsnLJiZFB/">
-      如果沒有自動跳轉，按這裡
+    <div
+      id="loader"
+      class="loader">
+    </div>
+
+    <a
+      id="openButton"
+      href="instagram://media?id=3992918750717907265">
+      開啟 Instagram
     </a>
 
-    <small>惡搞頁面</small>
+    <a
+      id="webButton"
+      href="https://www.instagram.com/p/DdpsnLJiZFB/">
+      用瀏覽器查看
+    </a>
+
+    <small>
+      惡搞頁面
+    </small>
+
   </main>
 
   <script>
+
+    const instagramApp =
+      "instagram://media?id=3992918750717907265";
+
+    const instagramWeb =
+      "https://www.instagram.com/p/DdpsnLJiZFB/";
+
+    const title =
+      document.getElementById("title");
+
+    const message =
+      document.getElementById("message");
+
+    const loader =
+      document.getElementById("loader");
+
+    const openButton =
+      document.getElementById("openButton");
+
+    const webButton =
+      document.getElementById("webButton");
+
+
+    /*
+      先等一陣，
+      俾使用者睇到「開緊利是」
+    */
+
     setTimeout(() => {
-      window.location.replace(
-        "https://www.instagram.com/p/DdpsnLJiZFB/"
-      );
-    }, 1200);
+
+      /*
+        嘗試直接叫 iPhone
+        開 Instagram App
+      */
+
+      window.location.href =
+        instagramApp;
+
+
+      /*
+        如果內置瀏覽器阻止，
+        約 1.5 秒後顯示手動按鈕
+      */
+
+      setTimeout(() => {
+
+        title.textContent =
+          "差一步 👀";
+
+        message.textContent =
+          "撳下面開啟利是";
+
+        loader.style.display =
+          "none";
+
+        openButton.style.display =
+          "inline-block";
+
+        webButton.style.display =
+          "inline-block";
+
+      }, 1500);
+
+    }, 900);
+
+
+    /*
+      如果使用者撳「開啟 Instagram」，
+      再嘗試一次 App Deep Link
+    */
+
+    openButton.addEventListener(
+      "click",
+      function () {
+
+        window.location.href =
+          instagramApp;
+
+      }
+    );
+
   </script>
 
 </body>
